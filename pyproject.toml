@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "dog-bark-detection"
+version = "0.1.0"
+description = ""
+authors = ["Yehor Nazarkin <ynazarkin@healthjoy.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+librosa = "^0.10.1"
+PyAudio = "^0.2.14"
+wavio = "^0.0.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

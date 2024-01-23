@@ -14,7 +14,7 @@ def record_segment(path, length=30, sampling=44100, depth=32, channels=1, chunk=
     chunk (int): The chunk size that is read from a buffer.
     """
     nsteps = int((sampling / chunk) * length)
-    audio_format = eval("pyaudio.paInt{}".format(depth))
+    audio_format = pyaudio.paInt32
 
     audio = pyaudio.PyAudio()
     stream = audio.open(
@@ -33,16 +33,14 @@ def record_segment(path, length=30, sampling=44100, depth=32, channels=1, chunk=
     return save_segment(
         path,
         frames,
-        length,
         sampling,
-        depth,
         channels,
         audio.get_sample_size(audio_format),
     )
 
 
 def save_segment(
-    path, frames, length=30, sampling=44100, depth=32, channels=1, sampling_width=4
+    path, frames, sampling=44100, channels=1, sampling_width=4
 ):
     """
     Parameters:
