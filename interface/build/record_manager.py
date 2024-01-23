@@ -4,9 +4,6 @@ from os.path import join, dirname
 import os
 
 from pipelines.communication import create_body, send_files
-from pipelines.detect import detect_bark_howl
-from pipelines.io import load_audio, save_audio
-from pipelines.record import record_segment
 from pipelines.store import get_batches
 
 from .constants import message

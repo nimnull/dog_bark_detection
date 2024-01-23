@@ -1,4 +1,4 @@
-from tkinter import Button, Entry, Frame, Image, IntVar, Label, Menu, TclError, Tk, Toplevel, ttk
+from tkinter import Button, Entry, Frame, Image, Label, TclError, Tk
 
 from .record_manager import RecordManager
 from .constants import buttons_dict
