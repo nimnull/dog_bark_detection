@@ -3,16 +3,16 @@ import os
 from datetime import datetime
 from os.path import dirname, join
 
-from data.config import message, receiver, sender
-from pipelines.communication import create_body, send_files
+# from data.config import message, receiver, sender
+# from pipelines.communication import create_body, send_files
 from pipelines.store import get_batches
 
 LOG = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    n_files = 5
+    n_files = 1
     attempts = 20
-    length = 30
+    length = 10
 
     now = datetime.now()
     date = now.strftime("%d-%m-%Y")
@@ -40,9 +40,10 @@ if __name__ == "__main__":
             current_time = now.strftime("%H:%M:%S on %d-%m-%Y")
             print("No files with bark stored at", current_time)
             continue
-        message.update({"body": create_body(files, message)})
-        try:
-            send_files(files, sender, receiver, message)
-        except Exception:
-            LOG.exception("Something went wrong while sending a message")
-            continue
+        print(f"Bark detected: {files}")
+        # message.update({"body": create_body(files, message)})
+        # try:
+        #     send_files(files, sender, receiver, message)
+        # except Exception:
+        #     LOG.exception("Something went wrong while sending a message")
+        #     continue

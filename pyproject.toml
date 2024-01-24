@@ -11,6 +11,7 @@ python = "^3.11"
 librosa = "^0.10.1"
 PyAudio = "^0.2.14"
 wavio = "^0.0.8"
+matplotlib = "^3.8.2"
 
 
 [build-system]

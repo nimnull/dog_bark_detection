@@ -4,7 +4,7 @@ import wave
 import pyaudio
 
 
-def record_segment(path, length=30, sampling=44100, depth=32, channels=1, chunk=1024):
+def record_segment(path, length=30, sampling=44100, channels=1, chunk=1024):
     """
     path (str): Path where the file will be stored.
     length (float): Length of the recorded segment in seconds.
