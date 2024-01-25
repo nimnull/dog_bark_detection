@@ -1,10 +1,11 @@
 import os
+import sys
 import wave
 
 import pyaudio
 
 
-def record_segment(path, length=30, sampling=44100, channels=1, chunk=1024):
+def record_segment(path, length=30, sampling=44100, chunk=1024):
     """
     path (str): Path where the file will be stored.
     length (float): Length of the recorded segment in seconds.
@@ -13,6 +14,7 @@ def record_segment(path, length=30, sampling=44100, channels=1, chunk=1024):
     channels (int): Number of channels being recorded.
     chunk (int): The chunk size that is read from a buffer.
     """
+    channels = 1 if sys.platform == 'darwin' else 2
     nsteps = int((sampling / chunk) * length)
     audio_format = pyaudio.paInt32
 
@@ -24,7 +26,7 @@ def record_segment(path, length=30, sampling=44100, channels=1, chunk=1024):
         input=True,
         frames_per_buffer=chunk,
     )
-    frames = [stream.read(chunk) for i in range(0, nsteps)]
+    frames = [stream.read(chunk, exception_on_overflow=False) for i in range(0, nsteps)]
 
     stream.stop_stream()
     stream.close()

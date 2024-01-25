@@ -25,6 +25,7 @@ def get_batches(
         subsampling (int): Subsampling rate for the audio to reduce its final storage space.
     """
     files = []
+
     for _ in range(attempts):
         check = record_segment(temp_audio_path, length=length)
         if not check:
