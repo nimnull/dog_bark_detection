@@ -26,7 +26,6 @@ def detect_bark_howl(
     """
     times = np.arange(len(audio)) / sampling
     centroids, freq_bins, dbs = freqs_and_dbs(audio, sampling, sensitivity)
-    print(f"{centroids=}, {freq_bins=}, {dbs=}")
     time_regions = determine_time_regions(
         centroids, freq_bins, dbs, sampling, freq_range, db_range, duration
     )
@@ -88,10 +87,9 @@ def freqs_and_dbs(audio, sampling, sensitivity):
     """
     We calculate here the frequencies and dBs bins.
     """
-    print(f"{audio=}, {sampling=}")
     centroids = librosa.feature.spectral_centroid(y=audio, sr=sampling)[0]
     ffts = librosa.stft(audio)
-    magnitude, phase = librosa.magphase(ffts)
+    magnitude, _ = librosa.magphase(ffts)
 
     dbs = librosa.amplitude_to_db(magnitude, ref=sensitivity, top_db=None)
     dbs += abs(dbs.min())

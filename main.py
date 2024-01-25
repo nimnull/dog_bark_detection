@@ -13,6 +13,8 @@ if __name__ == "__main__":
     audio_path = join(".", "data", "youtube_sample2.mp3")
     os.makedirs(dirname(audio_path), exist_ok=True)
     audio_segment_path = record_segment(audio_path, length=5)
+    if audio_segment_path is None:
+        exit(1)
     audio, sampling = load_audio(audio_segment_path, sampling=None)
     extract = 20 * sampling
     base_output_bark = join(".", "data", "youtube_folder{}", "bark_{}.wav").format

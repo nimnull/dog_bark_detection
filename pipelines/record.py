@@ -1,8 +1,12 @@
+import logging
 import os
 import sys
 import wave
 
 import pyaudio
+
+
+LOG = logging.getLogger(__name__)
 
 
 def record_segment(path, length=30, sampling=44100, chunk=1024):
@@ -19,26 +23,29 @@ def record_segment(path, length=30, sampling=44100, chunk=1024):
     audio_format = pyaudio.paInt32
 
     audio = pyaudio.PyAudio()
-    stream = audio.open(
-        format=audio_format,
-        channels=channels,
-        rate=sampling,
-        input=True,
-        frames_per_buffer=chunk,
-    )
-    frames = [stream.read(chunk, exception_on_overflow=False) for i in range(0, nsteps)]
+    try:
+        stream = audio.open(
+            format=audio_format,
+            channels=channels,
+            rate=sampling,
+            input=True,
+            frames_per_buffer=chunk,
+        )
+        frames = [stream.read(chunk, exception_on_overflow=False) for i in range(0, nsteps)]
 
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
+        stream.stop_stream()
+        stream.close()
+        audio.terminate()
 
-    return save_segment(
-        path,
-        frames,
-        sampling,
-        channels,
-        audio.get_sample_size(audio_format),
-    )
+        return save_segment(
+            path,
+            frames,
+            sampling,
+            channels,
+            audio.get_sample_size(audio_format),
+        )
+    except OSError:
+        LOG.exception("Can't open capture device")
 
 
 def save_segment(
